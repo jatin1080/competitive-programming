@@ -4,5 +4,10 @@
 using namespace std;
 
 int main() {
-    cout<<"Jatin is awesome. He is a very good programmer \n";
+
+    string thisWorksAsAnIterotor = "numberOfCharacters";
+    for(char ch: thisWorksAsAnIterotor) {
+        cout<<"Veg Maharaja Mac is a hell of a burger. \n";
+    }
+    cout<<"Jatin is awesome. He is a very foody programmer. \n";
 }
