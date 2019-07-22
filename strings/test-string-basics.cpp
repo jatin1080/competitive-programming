@@ -7,9 +7,10 @@ int main() {
     char ch[4];
 
     ch[0] = 'j';
-    ch[1] = 'j';
-    ch[2] = 'j';
-    ch[3] = 'j';
+    ch[1] = 'a';
+    ch[2] = 't';
+    ch[3] = 'i';
+    ch[4] = 'n';
 
     cout<<ch;
     
