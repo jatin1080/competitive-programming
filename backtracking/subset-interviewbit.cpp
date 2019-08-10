@@ -3,17 +3,6 @@
 
 using namespace std;
 
-bool isEqual(vector<int> &A, vector<int> &B) {
-    if(A.size() != B.size()) return false;
-    else {
-        for(int i=0; i<A.size(); i++) {
-            if(A[i]!=B[i]) return false;            
-        }
-        return true;
-    }
-    return true;
-}
-
 vector<vector<int>> subsets2(vector<int> &A) {
     vector<vector<int>> B;
 
@@ -34,7 +23,7 @@ vector<vector<int>> subsets2(vector<int> &A) {
         for(int i=0; i<F.size(); i++) {
             vector<int> y = F[i];
             y.insert(y.begin(), A[0]);
-            if(i+1==F.size() || !isEqual(y, F[i+1]))B.push_back(y);
+            B.push_back(y);
         }
 
         for(vector<int> v: F) {
@@ -42,13 +31,11 @@ vector<vector<int>> subsets2(vector<int> &A) {
         }
     }
 
-
-
     return B;
 }
 
 int main() {
-    vector<int> A{1,2,2};
+    vector<int> A{1,2};
 
 
     sort(A.begin(), A.end());
