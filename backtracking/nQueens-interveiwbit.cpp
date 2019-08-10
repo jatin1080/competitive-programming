@@ -7,81 +7,74 @@ using namespace std;
 
 vector<vector<vector<string>>> solutions;
 
-void foundASolution(vector<vector<string>> sol) {
+void foundASolution(vector<vector<string>> &sol) {
     solutions.push_back(sol);
 }
 
-void findSolution(vector<vector<string>> currentState, int index, int n) {
-    if(index == n) {
-        foundASolution(currentState);
+void findSolution(vector<vector<string>> &currentState, int index, int n) {
+    if(index >= n) {
+        vector<vector<string>> sol(currentState.begin(), currentState.end());
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++) {
+                if(sol[i][j]=="_") sol[i][j] = ".";
+            }
+        }
+        foundASolution(sol);
         return;
     }
-    vector<vector<string>> savedState = currentState;
-    bool vacancyForQueen = false;
 
     // find all the places to put the queen in this row
     vector<int> placesAvailble;
-    for(int x; x<n; x++) {
+    for(int x=0; x<n; x++) {
         if(currentState[index][x]=="_") placesAvailble.push_back(x);
     }
 
-    if(placesAvailble.size()) vacancyForQueen = true;
-    else return; // if vacancyforqueen is not there then no solution exist
+    if(!placesAvailble.size()) return;  
 
     //put the queen at each place one by one
-
     for(int x=0; x<placesAvailble.size(); x++) {
         int i = placesAvailble[x];
-        currentState[index][i] = "Q";
+        vector<vector<string>> solvingState(currentState.begin(), currentState.end());
+        solvingState[index][i] = "Q";
         for(int j=i+1; j<n; j++) {
-            currentState[index][j] = ".";
+            solvingState[index][j] = ".";
         }
         for(int k=index+1; k<n; k++) {
-            currentState[k][i] = ".";
+            solvingState[k][i] = ".";
         }
         for(int l=1; l<n; l++) {
-            if(i+l<n && index+l<n) currentState[index+l][i+l] = ".";
+            if(i+l<n && index+l<n) solvingState[index+l][i+l] = ".";
             else break;
         }
+        for(int m=1; m<n; m++) {
+            if(i-m>=0 && index+m<n) solvingState[index+m][i-m] = ".";
+            else break;
+        }
+        findSolution(solvingState, index+1, n);
     }
-    
-
-    if(vacancyForQueen)findSolution(currentState, index+1, n);
 
     return;    
 }
 
-vector<vector<string>> nQueens(int n) {
+void nQueens(int n) {
     vector<string> A(n, "_");
     vector<vector<string>> V(n,A);
-
-    // V[0][1] = "Q";
-
-    findSolution(V, 0, 2);
-
-    return V;
+    findSolution(V, 0, n);
+    return;
 }
 
 
 int main() {
-    int n = 2;
-    // cin>>n;
+    int n = 4;
+    cout<<" give the 'n' of nQueens problem: ";
+    cin>>n;
 
-    vector<vector<string>> ans;
+    solutions.clear();
 
-    ans = nQueens(n);
-
-    // for(vector<string> v: ans) {
-    //     cout<<"[ ";
-    //     for(string i: v) {
-    //         cout<<i<<", ";
-    //     }
-    //     cout<<"]"<<endl;
-    // }
-
-
+    nQueens(n);
 
     for(vector<vector<string>> vec: solutions) {
+        cout<<"solution:  "<<endl;
         for(vector<string> v: vec) {
             cout<<"[ ";
             for(string i: v) {
@@ -89,6 +82,7 @@ int main() {
             }
             cout<<"]"<<endl;
         }
+        cout<<endl<<"solution end"<<endl<<endl;
     }
 }
 
