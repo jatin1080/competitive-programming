@@ -16,7 +16,7 @@ int main() {
     for(int i=1; i<=N; i++) {
         int x;
         cin>>x;
-        A.push(x);
+        A.push_back(x);
     }
 
     std::vector<int> ans = solve(A);
@@ -24,7 +24,9 @@ int main() {
     return 0;
 }
 
-solve(std::vector<int> A) {
+// PROBLEMS FIXED
+
+std::vector<int> solve(std::vector<int> A) {
     std::vector<int> B;
     if(A.size()==0) return B;
 
@@ -39,6 +41,9 @@ solve(std::vector<int> A) {
             B.push_back(currMin);
         }
         else
+        {
+            
+        }
     }
 
 }
