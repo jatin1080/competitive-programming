@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#include "../common/lib/printlib.cpp"
+#include "../../common/lib/printlib.cpp"
 
 using namespace std;
 
